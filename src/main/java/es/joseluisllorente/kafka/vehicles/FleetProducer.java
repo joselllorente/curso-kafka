@@ -14,9 +14,9 @@ public class FleetProducer  {
 	private final KafkaProducer<String,String> producer;
     private final String topic;
     private final Boolean isAsync;
-    public static String kafka_server = "localhost";
-    public static final int KAFKA_SERVER_PORT = 9092;
-    public static final String CLIENT_ID = "SampleProducer";
+    private static String kafka_server = "localhost";
+    private static final int KAFKA_SERVER_PORT = 9092;
+    private static final String CLIENT_ID = "SampleProducer";
     
     public FleetProducer(String topic, Boolean isAsync) {
     	System.out.println("Conectando al servidor "+kafka_server+":"+KAFKA_SERVER_PORT);
@@ -25,7 +25,7 @@ public class FleetProducer  {
         properties.put("client.id", CLIENT_ID);
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        producer = new KafkaProducer(properties);
+        producer = new KafkaProducer<String,String>(properties);
         this.topic = topic;
         this.isAsync = isAsync;
     }
@@ -53,10 +53,10 @@ public class FleetProducer  {
             
             long startTime = System.currentTimeMillis();
             if (isAsync) { // Send asynchronously
-                producer.send(new ProducerRecord(topic, id, messageStr), new DemoCallBack(startTime, id, messageStr));
+                producer.send(new ProducerRecord<String,String>(topic, id, messageStr), new DemoCallBack(startTime, id, messageStr));
             } else { // Send synchronously
                 try {
-                    producer.send(new ProducerRecord(topic, id, messageStr)).get();
+                    producer.send(new ProducerRecord<String,String>(topic, id, messageStr)).get();
                     System.out.println("Sent message: (" + id + ", " + messageStr + ") to topic "+topic);
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
