@@ -48,18 +48,19 @@ public class ProducerCallBack
     	KafkaProducer<String, String> producer = new KafkaProducer <String,String>(kafkaProps);
     	
     	logger.info("Enviando datos a "+bootstrapServers + " topic: "+ topicName);
-    	for (int i =0; i<=50 ; i++) {
+    	for (int i =0; i<=10 ; i++) {
 	    	//Creamos los registros que se enviaran
 	    	ProducerRecord <String,String> record = new ProducerRecord<String, String>(topicName, "MATTAXI:"+i);
 	    	
 	    	try {
+	    		logger.info("Enviando "+i);
 	    		//Enviamos los registros de manera asincrona
 	    		producer.send(record, new Callback() {
 					@Override
 					public void onCompletion(RecordMetadata metadata, Exception exception) {
 						//Cada vez que un registro se envia satisfactoriamente o se envia una excepción
 						if (exception==null) {
-							logger.info("Recibida metainformación \n" + 
+							logger.info("Recibida metainformaci�n \n" + 
 								"Topic: " + metadata.topic()+ "\n" +
 								"Partition: " + metadata.partition()+ "\n" +
 								"Offset: " + metadata.offset()+ "\n" +
@@ -76,6 +77,7 @@ public class ProducerCallBack
 			}
 	    	//kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic topic-test --from-beginning
     	}
+    	logger.info("Finalizado");
 //    	producer.flush();
     	producer.close();
     	logger.info("Enviados2");

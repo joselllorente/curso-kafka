@@ -13,7 +13,8 @@ public class CreateTopic {
 	static Logger logger = LoggerFactory.getLogger(CreateTopic.class);
 	
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
-		//args = new String[]{"topic-par;3;1","topic-impar;3;1"};
+		
+		args = new String[]{"topic-test;3;1"};
 		AdminClient admin = TopicUtils.createAdminClient();
 		if(args.length==0) {
 			logger.info("Creating default topic \"topic-test\",3,1");

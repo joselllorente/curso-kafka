@@ -14,7 +14,7 @@ import org.apache.kafka.common.TopicPartition;
 
 public class KafkaSimpleConsumer {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
@@ -39,13 +39,14 @@ public class KafkaSimpleConsumer {
             if (recs.count() != 0) {
             	for (ConsumerRecord<String, String> rec : recs) {
                     //System.out.printf("Recieved %s: %s", rec.key(), rec.value());
-            		System.out.printf("Topic %s Particion: %s", rec.topic(),rec.partition());
+            		System.out.printf("Topic %s Particion: %s [%s]", rec.topic(),rec.partition(), rec.offset());
             		System.out.printf("Recibido %s", rec.value());
             		
             		System.out.println();
                 }
             }
             counter++;
+            Thread.sleep(500);
         }
 
 	}

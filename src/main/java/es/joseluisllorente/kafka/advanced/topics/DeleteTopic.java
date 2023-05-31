@@ -13,7 +13,7 @@ public class DeleteTopic {
 	
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		AdminClient admin = TopicUtils.createAdminClient();
-		//args = new String[]{"topic-par","topic-impar"};
+		args = new String[]{"topic-ejercicio"};
 		if (args.length==0) {
 			logger.info("Deleting default topic \"topic-test\"");
 			ArrayList<String> topicsToDelete = new ArrayList<String>();
@@ -29,5 +29,6 @@ public class DeleteTopic {
 		}
 		Thread.sleep(5000);
 		logger.info("Deleting topics finished");
+		System.out.println("Termina");
 	}
 }

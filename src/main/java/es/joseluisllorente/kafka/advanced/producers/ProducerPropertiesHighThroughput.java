@@ -21,7 +21,7 @@ public class ProducerPropertiesHighThroughput
 {
 	static String bootstrapServers ="localhost:9092";
 	static String topicName="topic-test-highthroughput";
-	//kafka-topics.sh --zookeeper localhost:2181 --create --topic topic-test-highthroughput --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+	//kafka-topics --zookeeper localhost:2181 --create --topic topic-test-highthroughput --partitions 3 --replication-factor 3 --config min.insync.replicas=2
 	//kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic topic-test-highthroughput --from-beginning
     public static void main( String[] args )
     {
@@ -41,11 +41,12 @@ public class ProducerPropertiesHighThroughput
 	    	ProducerRecord <String,String> record = new ProducerRecord<String, String>(topicName, clave, valor);
 	    	
 	    	try {
+	    		Thread.sleep(5000);
 	    		//Enviamos los registros de manera SINCRONA!!! con el get() del final
 	    		producer.send(record, new Callback() {
 					@Override
 					public void onCompletion(RecordMetadata metadata, Exception exception) {
-						//Cada vez que un registro se envia satisfactoriamente o se envia una excepción
+						//Cada vez que un registro se envia satisfactoriamente o se envia una excepci�n
 						if (exception==null) {
 							logger.info("Recibida metainformación \n" + 
 								"Topic: " + metadata.topic()+ "\n" +

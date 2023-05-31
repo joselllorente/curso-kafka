@@ -20,9 +20,11 @@ public class ProducerPropertiesAcks
 	static String bootstrapServers ="localhost:9092";
 	static String topicName="topic-test-acks";
 	//Crear Topic
-	//kafka-topics.sh --zookeeper localhost:2181 --create --topic topic-test-acks --partitions 3 --replication-factor 3 --config min.insync.replicas=2
-	//Al arrancar parar contenedores hasta provocar excepci贸n NOT_ENOUGH_REPLICAS
-	//ver log del contenedor activo: docker container logs kafka-docker-compose_kafka1_1
+	//kafka-topics --zookeeper zoo1:2181 --create --topic topic-test-acks --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+	//kafka-topics --zookeeper zoo1:2181 --describe --topic topic-test-acks
+
+	//Al arrancar parar contenedores hasta provocar excepci髇 NOT_ENOUGH_REPLICAS
+	//docker container stop kafka-kafka1-1
     public static void main( String[] args ) throws InterruptedException
     {
     	Logger logger = LoggerFactory.getLogger(ProducerPropertiesAcks.class);
@@ -47,7 +49,7 @@ public class ProducerPropertiesAcks
 					public void onCompletion(RecordMetadata metadata, Exception exception) {
 						//Cada vez que un registro se envia satisfactoriamente o se envia una excepci贸n
 						if (exception==null) {
-							logger.info("Recibida metainformaci贸n \n" + 
+							logger.info("Recibida metainformaci髇 \n" + 
 								"Topic: " + metadata.topic()+ "\n" +
 								"Partition: " + metadata.partition()+ "\n" +
 								"Offset: " + metadata.offset()+ "\n" +
@@ -87,7 +89,7 @@ public class ProducerPropertiesAcks
         properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5"); 
 
         
-        //Habilitamos productor idempotente que garantiza una ejecuci贸n estable
+        //Habilitamos productor idempotente que garantiza una ejecuci髇 estable
         properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
 
          // create the producer

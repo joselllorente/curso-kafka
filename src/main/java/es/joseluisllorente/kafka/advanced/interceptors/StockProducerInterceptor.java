@@ -19,7 +19,7 @@ public class StockProducerInterceptor implements ProducerInterceptor<String, Str
 
 	@Override
 	public ProducerRecord<String, String> onSend(ProducerRecord<String, String> record) {
-		// TODO Auto-generated method stub
+		logger.info("onSend key:"+record.key());
 		return record;
 	}
 

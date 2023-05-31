@@ -35,7 +35,7 @@ public class Consumer {
     	kafkaProps.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
     	kafkaProps.setProperty(ConsumerConfig.GROUP_ID_CONFIG,groupId);
     	kafkaProps.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,"earliest");//"earliest","latest","none" (none si prefieres establecer el desplazamiento inicial)
-    	
+    	//none: throw exception to the consumer if no previous offset is found for the consumer's group
     	
     	//Creamos el consumidor
     	KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(kafkaProps);
