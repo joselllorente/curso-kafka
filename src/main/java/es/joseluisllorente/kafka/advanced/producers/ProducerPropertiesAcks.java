@@ -20,8 +20,12 @@ public class ProducerPropertiesAcks
 	static String bootstrapServers ="localhost:9092";
 	static String topicName="topic-test-acks";
 	//Crear Topic
+	//Version <2.2
 	//kafka-topics --zookeeper zoo1:2181 --create --topic topic-test-acks --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+	//Version >3
+	//kafka-topics --bootstrap-server localhost:9092 --create --topic topic-test-acks --partitions 3 --replication-factor 3 --config min.insync.replicas=2
 	//kafka-topics --zookeeper zoo1:2181 --describe --topic topic-test-acks
+	//kafka-topics --bootstrap-server localhost:9092 --describe --topic topic-test-acks
 
 	//Al arrancar parar contenedores hasta provocar excepción NOT_ENOUGH_REPLICAS
 	//docker container stop kafka-kafka1-1
@@ -36,7 +40,7 @@ public class ProducerPropertiesAcks
     	
     	for (int i =0; i<=20 ; i++) {
 	    	//Creamos los registros que se enviaran
-    		Thread.sleep(5000);
+    		Thread.sleep(10000);
     		String valor = "Enviando datos "+i;
     		String clave = "key_"+i;
     		logger.info("Enviando datos a "+bootstrapServers + " topic: "+ topicName + " clave: "+clave);

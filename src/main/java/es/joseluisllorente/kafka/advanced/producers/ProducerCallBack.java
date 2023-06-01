@@ -52,9 +52,11 @@ public class ProducerCallBack
 	    	//Creamos los registros que se enviaran
 	    	ProducerRecord <String,String> record = new ProducerRecord<String, String>(topicName, "MATTAXI:"+i);
 	    	
+	    	
 	    	try {
 	    		logger.info("Enviando "+i);
 	    		//Enviamos los registros de manera asincrona
+	    		
 	    		producer.send(record, new Callback() {
 					@Override
 					public void onCompletion(RecordMetadata metadata, Exception exception) {

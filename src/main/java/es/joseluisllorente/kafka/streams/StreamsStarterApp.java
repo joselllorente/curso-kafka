@@ -56,12 +56,13 @@ public class StreamsStarterApp {
     	String[] csvSplit = csv.split(",");
     	String transform = "{";
     	for (int i = 0; i < csvSplit.length; i++) {
-    		transform+="field"+i+":"+csvSplit[0];
+    		transform+="field"+i+":"+csvSplit[i];
     		if (i!=csvSplit.length-1) {
     			transform+=",";
     		}
 		}
     	transform += "}";
+    	System.out.println("Data transform "+ transform);
 		return transform;
     }
 

@@ -53,7 +53,7 @@ public class ConsumerManualCommit {
     	consumer.subscribe(Collections.singleton(topicName));
     	//consumer.subscribe(Arrays.asList("topic-test","topic-test2"));
     
-    	//ObtenciÃ³n de la informaciÃ³n
+    	//Obtención de la información
     	while(true) {
     		//consumer.poll(2000);//Deprecated desde la versiÃ³n 2.0 de kafka
     		
@@ -89,14 +89,14 @@ public class ConsumerManualCommit {
     			
     			//Note that using the automatic commits gives you â€œat least onceâ€� processing since the consumer
     			//guarantees that offsets are only committed for messages which have been returned to the application.
-	    		logger.info("Commiting offsets ...");
-	    		consumer.commitSync();
-	    		logger.info("Offsets commited");
-	    		try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+//	    		logger.info("Commiting offsets ...");
+//	    		consumer.commitSync();
+//	    		logger.info("Offsets commited");
+//	    		try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
     		}
     		//Parar antes de que acabe y visualizar con kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group CLIENTE4
     	}

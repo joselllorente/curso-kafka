@@ -20,10 +20,10 @@ import es.joseluisllorente.kafka.advanced.interceptors.StockProducerInterceptor;
 public class ProducerPropertiesHighThroughput 
 {
 	static String bootstrapServers ="localhost:9092";
-	static String topicName="topic-test-highthroughput";
+	static String topicName="topic-test-acks";
 	//kafka-topics --zookeeper localhost:2181 --create --topic topic-test-highthroughput --partitions 3 --replication-factor 3 --config min.insync.replicas=2
 	//kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic topic-test-highthroughput --from-beginning
-    public static void main( String[] args )
+    public static void main( String[] args ) throws InterruptedException
     {
     	Logger logger = LoggerFactory.getLogger(ProducerPropertiesHighThroughput.class);
     	
@@ -32,16 +32,17 @@ public class ProducerPropertiesHighThroughput
         KafkaProducer<String, String> producer = createKafkaProducer();
     	
     	
-    	for (int i =0; i<=5 ; i++) {
+    	for (int i =0; i<=10 ; i++) {
 	    	//Creamos los registros que se enviaran
     		
     		String valor = "Enviando datos comprimidos"+i;
     		String clave = "key_"+i;
+    		Thread.sleep(15000);
     		logger.info("Enviando datos comprimidos a "+bootstrapServers + " topic: "+ topicName + " clave: "+clave);
 	    	ProducerRecord <String,String> record = new ProducerRecord<String, String>(topicName, clave, valor);
 	    	
 	    	try {
-	    		Thread.sleep(5000);
+	    		
 	    		//Enviamos los registros de manera SINCRONA!!! con el get() del final
 	    		producer.send(record, new Callback() {
 					@Override

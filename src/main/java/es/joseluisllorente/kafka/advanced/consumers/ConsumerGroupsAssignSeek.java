@@ -50,7 +50,7 @@ public class ConsumerGroupsAssignSeek {
     	consumer.assign(Arrays.asList(partitionToReadFrom));
     	
     	//seek
-    	long offsetToReadFrom= 260;
+    	long offsetToReadFrom= 6;
     	consumer.seek(partitionToReadFrom, offsetToReadFrom);
 
 		ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
@@ -62,7 +62,7 @@ public class ConsumerGroupsAssignSeek {
 					"Offset: " + record.offset()+ "\t"  );
 		}
     	
-    	logger.info("Terminó");
+    	logger.info("Termina");
 
 	}
 
